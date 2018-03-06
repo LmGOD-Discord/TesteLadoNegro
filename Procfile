@@ -1,1 +1,1 @@
-worker: python Ros.py
+worker: python main.py
