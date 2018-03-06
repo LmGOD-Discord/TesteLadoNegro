@@ -1,9 +1,15 @@
 import discord
 import asyncio
-
-import config #Apenas importei isso para não mostrar o meu token
+import os
 
 client = discord.Client()
+
+is_prod = os.environ.get('IS_HEROKU', None)
+if is_prod:
+    token = os.environ.get('TOKEN')
+else:
+    import secreto
+    token = secreto.token
 
 @client.event
 async def on_ready():
@@ -17,4 +23,4 @@ async def on_message(message):
     if message.content.lower().startswith('!ola'):
         await client.send_message(message.channel, 'Olá!')
 
-client.run(config.token)
+client.run(token)
